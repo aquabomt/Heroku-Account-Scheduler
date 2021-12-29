@@ -34,10 +34,10 @@ jobs:
               heroku auth:whoami
               if [[ "${USE_FIRST_ACCOUNT}" == "true" ]]; then
                   echo "Switching To First Account App!"
-                  heroku ps:scale web=1 --app ${heroku_app_name}
+                  heroku ps:scale web=1 --app ${{secrets.HEROKU_APP_NAME_1}}
               elif [[ "${USE_FIRST_ACCOUNT}" == "false" ]]; then
                   echo "Turning Off First Account App!"
-                  heroku ps:scale web=0 --app ${heroku_app_name}
+                  heroku ps:scale web=0 --app ${{secrets.HEROKU_APP_NAME_1}}
               fi
               
        - name: Switch To Second Heroku Account
@@ -51,10 +51,10 @@ jobs:
               heroku auth:whoami
               if [[ "${USE_FIRST_ACCOUNT}" == "false" ]]; then
                   echo "Switching To Second Account App!"
-                  heroku ps:scale web=1 --app ${heroku_app_name}
+                  heroku ps:scale web=1 --app ${{secrets.HEROKU_APP_NAME_2}}
               elif [[ "${USE_FIRST_ACCOUNT}" == "true" ]]; then
                   echo "Turning Off Second Account App!"
-                  heroku ps:scale web=0 --app ${heroku_app_name}
+                  heroku ps:scale web=0 --app ${{secrets.HEROKU_APP_NAME_2}}
               fi
               
        - name: Send Telegram Notification
